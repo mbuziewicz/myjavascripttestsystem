@@ -1,0 +1,190 @@
+<head>
+    <!-- CSS only from https://getbootstrap.com/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <style>
+        .answer-button {padding: 40px;
+            margin: 10px;
+        }
+        .next-button {padding: 20px;
+            margin: 10px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+<div class="container">
+    <div class="row">
+        <h1 id="question">Question</h1>
+    </div>
+    <div class="row">
+        <button class="answer-button" id="1">Button 1</button>
+        <button class="answer-button" id="2">Button 2</button>
+        <button class="answer-button" id="3">Button 3</button>
+        <button class="answer-button" id="4">Button 4</button>
+    </div>
+    <div class="row">
+        <div class="col-md-12" >&nbsp;</div>
+    </div>
+    <div class="row">
+        <button class="next-button" id="next">Next</button>
+    </div>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+
+
+</body>
+
+<script type="text/javascript">
+
+    var count = 0;
+    var total_questions = 5;
+
+    var quiz_question = ["q1", "q2", "q3", "q4", "q5"];
+    var quiz_correct = [2,1,0,3,2];
+
+    var quiz_answers = [
+        ["answer1.1", "answer1.2", "correct answer1.3", "answer1.4"],
+        ["answer2.1", "correct answer2.2", "answer2.3", "answer2.4"],
+        ["correct answer3.1", "answer3.2", "answer3.3", "answer3.4"],
+        ["answer4.1", "answer4.2", "answer3.3", "correct answer4.4"],
+        ["answer5.1", "answer5.2", "correct answer5.3", "answer5.4"]
+        ];
+
+    var answer_click = function()
+    {
+        document.getElementById('next').disabled = true;
+
+        if (this.id == 1){
+            if (quiz_correct[count] == 0)
+            {
+                document.getElementById('1').innerHTML = "1Correct!";
+                document.getElementById('1').style.backgroundColor = "green";
+                document.getElementById('next').disabled = false;
+                document.getElementById('1').disabled = true;
+                document.getElementById('2').disabled = true;
+                document.getElementById('3').disabled = true;
+                document.getElementById('4').disabled = true;
+            }
+            else
+            {
+                document.getElementById('1').innerHTML = "1Ooops!";
+                document.getElementById('1').disabled = true;
+            }
+        }
+
+        else if (this.id == 2){
+            if (quiz_correct[count] == 1)
+            {
+                document.getElementById('2').innerHTML = "2Correct!";
+                document.getElementById('2').style.backgroundColor = "green";
+                document.getElementById('next').disabled = false;
+                document.getElementById('1').disabled = true;
+                document.getElementById('2').disabled = true;
+                document.getElementById('3').disabled = true;
+                document.getElementById('4').disabled = true;
+            }
+            else
+            {
+                document.getElementById('2').innerHTML = "2Ooops!";
+                document.getElementById('2').disabled = true;
+            }
+        }
+
+        else if (this.id == 3){
+            if (quiz_correct[count] == 2)
+            {
+                document.getElementById('3').innerHTML = "3Correct!";
+                document.getElementById('3').style.backgroundColor = "green";
+                document.getElementById('next').disabled = false;
+                document.getElementById('1').disabled = true;
+                document.getElementById('2').disabled = true;
+                document.getElementById('3').disabled = true;
+                document.getElementById('4').disabled = true;
+            }
+            else
+            {
+                document.getElementById('3').innerHTML = "3Ooops!";
+                document.getElementById('3').disabled = true;
+            }
+        }
+
+        else if (this.id == 4){
+            if (quiz_correct[count] == 3)
+            {
+                document.getElementById('4').innerHTML = "4Correct!";
+                document.getElementById('4').style.backgroundColor = "green";
+                document.getElementById('next').disabled = false;
+                document.getElementById('1').disabled = true;
+                document.getElementById('2').disabled = true;
+                document.getElementById('3').disabled = true;
+                document.getElementById('4').disabled = true;
+            }
+            else
+            {
+                document.getElementById('4').innerHTML = "4Ooops!";
+                document.getElementById('4').disabled = true;
+
+            }
+        }
+
+        
+        //alert("Button clicked, id "+this.id+", text"+this.innerHTML);
+    }
+
+    var next_click = function(){
+        count++;
+
+        if (count < total_questions){
+            document.getElementById('question').innerHTML = quiz_question[count];
+
+            document.getElementById('1').innerHTML = quiz_answers[count][0];
+            document.getElementById('2').innerHTML = quiz_answers[count][1];
+            document.getElementById('3').innerHTML = quiz_answers[count][2];
+            document.getElementById('4').innerHTML = quiz_answers[count][3];
+
+            document.getElementById('1').disabled = false;
+            document.getElementById('2').disabled = false;
+            document.getElementById('3').disabled = false;
+            document.getElementById('4').disabled = false;
+
+            document.getElementById('1').style.backgroundColor = "";
+            document.getElementById('2').style.backgroundColor = "";
+            document.getElementById('3').style.backgroundColor = "";
+            document.getElementById('4').style.backgroundColor = "";
+
+        }
+        document.getElementById('next').disabled = true;
+    }
+
+    document.getElementById('question').innerHTML = quiz_question[count];
+
+    document.getElementById('1').innerHTML = quiz_answers[count][0];
+    document.getElementById('2').innerHTML = quiz_answers[count][1];
+    document.getElementById('3').innerHTML = quiz_answers[count][2];
+    document.getElementById('4').innerHTML = quiz_answers[count][3];
+
+    document.getElementById('1').onclick = answer_click;
+    document.getElementById('2').onclick = answer_click;
+    document.getElementById('3').onclick = answer_click;
+    document.getElementById('4').onclick = answer_click;
+
+    document.getElementById('next').disabled = true;
+
+
+    document.getElementById('next').onclick = next_click;
+
+
+
+</script>
+
